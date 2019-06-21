@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.project.facerecognitiondemo.R;
 import com.project.facerecognitiondemo.entity.TestDataBean;
@@ -23,7 +24,7 @@ public class DetectActivity extends AppCompatActivity {
 
     private ImageView imgBack;
     private Button mBtnDetectImage;
-    private Button mBtnTestImage;
+    private TextView textIntroDetails;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -37,14 +38,6 @@ public class DetectActivity extends AppCompatActivity {
     }
 
     private void initListener() {
-        mBtnTestImage.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View v) {
-                //跳转到测试区域
-                startActivity(new Intent(DetectActivity.this,TestImageActivity.class), ActivityOptions.makeSceneTransitionAnimation(DetectActivity.this).toBundle());
-            }
-        });
         mBtnDetectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,8 +62,9 @@ public class DetectActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mBtnTestImage = findViewById(R.id.btn_face_detect_test_img);
         mBtnDetectImage = findViewById(R.id.btn_face_detect_img);
         imgBack = findViewById(R.id.img_back);
+        textIntroDetails = findViewById(R.id.text_intro_details);
+        textIntroDetails.setText("您可以上传一张图片，我们通过检测到图片中的人脸（支持一至多张人脸），可以标记出边框。您也可以对尺寸最大的5张人脸进行分析，获得面部关键点、年龄、性别、头部姿态、微笑检测、眼镜检测以及人脸质量等信息。");
     }
 }

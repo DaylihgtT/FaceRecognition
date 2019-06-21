@@ -8,14 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.project.facerecognitiondemo.R;
 
 public class MainActivity extends AppCompatActivity {
 
     //人脸检测
-    private Button mBtnFaceDetect;
-    private Button mBtnFaceCompare;
+    private ImageView mBtnFaceDetect;
+    private ImageView mBtnFaceCompare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mBtnFaceDetect = findViewById(R.id.btn_face_detect);
-        mBtnFaceCompare = findViewById(R.id.btn_face_compare);
+        mBtnFaceDetect = findViewById(R.id.img_detect_face);
+        mBtnFaceCompare = findViewById(R.id.img_compare_face);
     }
 }
