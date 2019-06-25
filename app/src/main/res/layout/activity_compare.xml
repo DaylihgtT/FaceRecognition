@@ -40,6 +40,16 @@
             android:textColor="#fff"
             />
 
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/help"
+            android:id="@+id/img_help"
+            />
+
     </RelativeLayout>
 
     <TextView
@@ -79,5 +89,36 @@
         app:layout_constraintTop_toBottomOf="@id/img_remind_compare"
         android:layout_marginTop="50dp"
         />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8DFFFFFF"
+        android:id="@+id/relative_layout_progress"
+        android:visibility="gone"
+        >
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spin_kit_view"
+            android:layout_centerInParent="true"
+            style="@style/SpinKitView.Large.FadingCircle"
+            app:SpinKit_Color="#03A9F4"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spin_kit_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:textColor="#A2A2A2"
+            android:text="hahhhhh"
+            android:id="@+id/relative_progress_hint_text"
+            />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

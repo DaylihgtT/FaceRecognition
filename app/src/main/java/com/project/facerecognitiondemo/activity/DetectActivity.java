@@ -41,15 +41,7 @@ public class DetectActivity extends AppCompatActivity {
         mBtnDetectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //跳转到检测页面
-                //测试接口及网络请求
-                ObserverOnNextListener<TestDataBean> listener = new ObserverOnNextListener<TestDataBean>() {
-                    @Override
-                    public void onNext(TestDataBean testDataBean) {
-                        Log.d("—ZRT—","testDataBean----"+testDataBean.toString());
-                    }
-                };
-                ApiMethods.getTopMovie(new MyObserver<TestDataBean>(DetectActivity.this,listener),"f4b23727f09d0bcd819e3d4273ca3ccc");
+                startActivity(new Intent(DetectActivity.this,DetectActivity.class));
             }
         });
         imgBack.setOnClickListener(new View.OnClickListener() {

@@ -11,17 +11,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.project.facerecognitiondemo.R;
+import com.project.facerecognitiondemo.util.SharedPrefrenceUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     //人脸检测
     private ImageView mBtnFaceDetect;
     private ImageView mBtnFaceCompare;
+    private boolean isInputFace = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (!SharedPrefrenceUtils.contain("isInputFace")){
+            SharedPrefrenceUtils.put("isInputFace",false);
+        }
         initView();
         initListener();
     }

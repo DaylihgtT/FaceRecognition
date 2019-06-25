@@ -1,25 +1,20 @@
 package com.project.facerecognitiondemo.util;
 
-import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.util.Log;
 
-import com.project.facerecognitiondemo.application.MyApplication;
-
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-
-import static android.support.v4.app.ActivityCompat.requestPermissions;
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
 
 /**
  * Author: ZRT
@@ -94,12 +89,15 @@ public class FileUtil {
      * @return
      */
     public static String getDiskCachePath(Context context) {
+        String filePath = "";
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
-            return context.getExternalCacheDir().getPath();
+            filePath = context.getExternalCacheDir().getPath() ;
         } else {
-            return context.getCacheDir().getPath();
+            filePath = context.getCacheDir().getPath();
         }
+        filePath = filePath + "/imgCache";
+        return filePath;
     }
 
     /**
@@ -112,12 +110,21 @@ public class FileUtil {
      * @since JDK 1.6
      */
     public static String encodeBase64File(String path) throws Exception {
-        File file = new File(path);
-        FileInputStream inputFile = new FileInputStream(file);
-        byte[] buffer = new byte[(int) file.length()];
-        inputFile.read(buffer);
-        inputFile.close();
-        return Base64.encodeToString(buffer, Base64.DEFAULT);
+        try {
+            FileInputStream fis = new FileInputStream(path);//转换成输入流
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int count = 0;
+            while((count = fis.read(buffer)) >= 0){
+                baos.write(buffer, 0, count);//读取输入流并写入输出字节流中
+            }
+            fis.close();//关闭文件输入流
+            String uploadBuffer = Base64.encodeToString(baos.toByteArray(),Base64.DEFAULT);  //进行Base64编码
+            Log.d("—ZRT—",uploadBuffer);
+            return uploadBuffer;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -138,9 +145,15 @@ public class FileUtil {
     }
 
     //在SD卡上创建文件夹
-    public static String createFiles(String path) {
-        File fileSD = Environment.getExternalStorageDirectory();
-        String filePath = fileSD.getPath() + path;
+    public static String createFiles(Context context,String path) {
+        String filePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            filePath = context.getExternalCacheDir().getPath() ;
+        } else {
+            filePath = context.getCacheDir().getPath();
+        }
+        filePath = filePath + path;
         File file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
@@ -158,6 +171,21 @@ public class FileUtil {
             return false;
         }
         return true;
+    }
+
+    public static Bitmap getBitmapFromFile(String path){
+        FileInputStream f = null;
+        try {
+            f = new FileInputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Bitmap bm = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 10;//图片的长宽都是原来的1/10
+        BufferedInputStream bis = new BufferedInputStream(f);
+        bm = BitmapFactory.decodeStream(bis, null, options);
+        return bm;
     }
 
 }

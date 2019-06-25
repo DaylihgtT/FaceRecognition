@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Description: It's use to ...
  */
 public class Api {
-    public static String baseUrl = "http://v.juhe.cn/weixin/";
+    public static String baseUrl = "https://api-cn.faceplusplus.com/facepp/";
 
     public static ApiService apiService;
     //单例

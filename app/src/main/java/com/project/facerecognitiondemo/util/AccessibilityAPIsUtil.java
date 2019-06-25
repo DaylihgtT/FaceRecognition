@@ -50,7 +50,7 @@ public class AccessibilityAPIsUtil {
         String s, attr = "";
         //处理文件
         s = dealPath(imgPath);
-        if (s == null || attributes.size() == 0 || landmark < 0 || landmark > 2 ) {
+        if (TextUtils.isEmpty(s) || attributes.size() == 0 || landmark < 0 || landmark > 2 ) {
             Log.d(TAG, "ERROR_请排查参数" + INFO);
             return null;
         }
@@ -79,6 +79,32 @@ public class AccessibilityAPIsUtil {
      * Author: ZRT
      * Email: zhuruotong@jeejio.com
      * Date:
+     * Description: 通过传入图片路径处理人脸检测和人脸分析数据
+     *
+     * @param imgPath    图片路径
+     * @return HashMap<String,RequestBody>     可直接用于请求的hashMap
+     * @throws NullPointerException 某一数据为空
+     */
+    public static HashMap<String, RequestBody> detectImgForFaceToken(String imgPath) {
+        String s, attr = "";
+        //处理文件
+        s = dealPath(imgPath);
+        if (TextUtils.isEmpty(s) ) {
+            Log.d(TAG, "ERROR_请排查参数" + INFO);
+            return null;
+        }
+        Log.d(TAG, "attr = " + attr + INFO);
+        queryMap.put("api_key", api_key);
+        queryMap.put("api_secret", api_secret);
+        queryMap.put("image_base64", s);
+        HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
+        return stringRequestBodyHashMap;
+    }
+
+    /**
+     * Author: ZRT
+     * Email: zhuruotong@jeejio.com
+     * Date:
      * Description: 通过路径处理两个人脸进行比对的数据
      *
      * @param imgPath1 第一张图片的路径
@@ -90,7 +116,7 @@ public class AccessibilityAPIsUtil {
         String img1, img2;
         img1 = dealPath(imgPath1);
         img2 = dealPath(imgPath2);
-        if (img1 == null || img2 == null) {
+        if (TextUtils.isEmpty(img1) || TextUtils.isEmpty(img2)) {
             Log.d(TAG, "ERROR_请排查参数" + INFO);
             return null;
         }
@@ -115,13 +141,39 @@ public class AccessibilityAPIsUtil {
      */
     public static HashMap<String, RequestBody> compareImgByFaceToken(String faceToken1, String faceToken2) {
 
-        if (faceToken1 == null || faceToken2 == null) {
+        if (TextUtils.isEmpty(faceToken1) || TextUtils.isEmpty(faceToken2) ) {
             Log.d(TAG, "ERROR_请排查参数" + INFO);
             return null;
         }
         queryMap.put("api_key", api_key);
         queryMap.put("api_secret", api_secret);
         queryMap.put("face_token1", faceToken1);
+        queryMap.put("face_token2", faceToken2);
+        HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
+        return stringRequestBodyHashMap;
+    }
+
+    /**
+     * Author: ZRT
+     * Email: zhuruotong@jeejio.com
+     * Date:
+     * Description: 通过face_token处理两个人脸进行比对的数据
+     *
+     * @param path1 第一张图片的路径
+     * @param faceToken2 第二张图片的faceToken
+     * @return HashMap<String,RequestBody>     可直接用于请求的hashMap
+     * @throws NullPointerException 某一数据为空
+     */
+    public static HashMap<String, RequestBody> compareImgByFaceTokenAndPath(String path1, String faceToken2) {
+
+        String s = dealPath(path1);
+        if (TextUtils.isEmpty(s)|| TextUtils.isEmpty(faceToken2)) {
+            Log.d(TAG, "ERROR_请排查参数" + INFO);
+            return null;
+        }
+        queryMap.put("api_key", api_key);
+        queryMap.put("api_secret", api_secret);
+        queryMap.put("image_base64_1", s);
         queryMap.put("face_token2", faceToken2);
         HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
         return stringRequestBodyHashMap;
@@ -189,9 +241,14 @@ public class AccessibilityAPIsUtil {
      * Description:处理获取 API Key 下的 FaceSet 列表及其 faceset_token、outer_id、display_name 和 tags 等信息的数据
      *
      */
-    public static HashMap<String, RequestBody> queryAllFaceSets() {
+    public static HashMap<String, RequestBody> queryAllFaceSets(String tags) {
+        if (TextUtils.isEmpty(tags)){
+            Log.d(TAG, "ERROR_请排查参数" + INFO);
+            return null;
+        }
         queryMap.put("api_key", api_key);
         queryMap.put("api_secret", api_secret);
+        queryMap.put("tags",tags);
         HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
         return stringRequestBodyHashMap;
     }
@@ -323,13 +380,15 @@ public class AccessibilityAPIsUtil {
      * Date:
      * Description:创建一个人脸的集合 FaceSet，用于存储人脸标识 face_token 的数据
      *
-     * @param facesetToken   faceSet标识
+     * @param displayName   faceSet名称
+     * @param tags          faceSet标识（与名称保持一致）
      * @param faceTokens    faceToken  需要添加的人脸标识
      *        最多不超过5个face_token
+     *
      */
-    public static HashMap<String, RequestBody> createFaceSets(String facesetToken,String displayName,List<String> faceTokens) {
+    public static HashMap<String, RequestBody> createFaceSets(String displayName,String tags,List<String> faceTokens) {
         String s = "";
-        if (TextUtils.isEmpty(facesetToken) || faceTokens.size()==0 || faceTokens.size()>5){
+        if (faceTokens.size()==0 || faceTokens.size()>5 || TextUtils.isEmpty(tags)||TextUtils.isEmpty(displayName)){
             Log.d(TAG, "ERROR_请排查参数" + INFO);
             return null;
         }
@@ -342,11 +401,34 @@ public class AccessibilityAPIsUtil {
         }
         queryMap.put("api_key", api_key);
         queryMap.put("api_secret", api_secret);
-        queryMap.put("faceset_token", facesetToken);
         queryMap.put("face_tokens", s);
+        queryMap.put("display_name", displayName);
+        queryMap.put("tags",tags);
         HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
         return stringRequestBodyHashMap;
     }
+
+    /** Author: ZRT
+     * Email: zhuruotong@jeejio.com
+     * Date:
+     * Description: 删除一个人脸的集合 FaceSet的数据
+     *
+     * @param faceSetToken   faceSet标识
+     *
+     */
+    public static HashMap<String, RequestBody> removeFaceSet(String faceSetToken) {
+        if (TextUtils.isEmpty(faceSetToken)){
+            Log.d(TAG, "ERROR_请排查参数" + INFO);
+            return null;
+        }
+        queryMap.put("api_key", api_key);
+        queryMap.put("api_secret", api_secret);
+        queryMap.put("faceset_token", faceSetToken);
+        queryMap.put("check_empty", 0);
+        HashMap<String, RequestBody> stringRequestBodyHashMap = generateRequestBody(queryMap);
+        return stringRequestBodyHashMap;
+    }
+
 
     /**
      * Author: ZRT

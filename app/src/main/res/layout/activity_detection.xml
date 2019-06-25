@@ -30,11 +30,233 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="250dp"
                 android:background="@drawable/holder"
+                android:id="@+id/img_holder_place"
                 />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始检测"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/img_show_detetion"
+                android:layout_marginTop="40dp"
+                android:background="#03A9F4"
+                android:textColor="#fff"
+                android:id="@+id/btn_start_detect"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/img_show_detetion"
+                android:id="@+id/show_all_attr_relative_layout"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/attr_text_age_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年龄"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/attr_text_age_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_age_title"
+                    android:layout_toRightOf="@id/attr_text_age_title"
+                    android:layout_marginLeft="50dp"
+                    android:text="25"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/attr_text_sex_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_age_title"
+                    android:layout_toLeftOf="@id/attr_text_sex_num"
+                    android:text="性别"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/attr_text_sex_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_age_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="10dp"
+                    android:text="25"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/attr_text_smilling_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/attr_text_age_title"
+                    android:text="微笑程度"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <SeekBar
+                    android:id="@+id/attr_text_smilling_num"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_smilling_title"
+                    android:layout_toRightOf="@id/attr_text_smilling_title"
+                    android:layout_marginLeft="20dp"
+                    android:clickable="false"
+                    android:progress="10"
+                    android:max="50"/>
+
+                <TextView
+                    android:id="@+id/attr_text_felling_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_smilling_title"
+                    android:layout_toLeftOf="@id/attr_text_felling_num"
+                    android:text="情绪"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/attr_text_felling_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_smilling_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="10dp"
+                    android:text="25"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/attr_text_people_type_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/attr_text_smilling_title"
+                    android:text="人种"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/attr_text_people_type_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_people_type_title"
+                    android:layout_toRightOf="@id/attr_text_age_title"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="10dp"
+                    android:text="25"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/attr_text_left_eye_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/attr_text_people_type_title"
+                    android:text="左眼状态"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/attr_text_left_eye_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_left_eye_title"
+                    android:layout_toRightOf="@id/attr_text_left_eye_title"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="睁眼，未戴眼镜"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/attr_text_right_eye_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/attr_text_left_eye_title"
+                    android:text="右眼状态"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/attr_text_right_eye_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/attr_text_right_eye_title"
+                    android:layout_toRightOf="@id/attr_text_right_eye_title"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="睁眼，未戴眼镜"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="一键美颜"
+                    android:textColor="#fff"
+                    android:background="@drawable/btn_circle_bg"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8DFFFFFF"
+        android:id="@+id/relative_layout_progress"
+        android:visibility="gone"
+        >
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spin_kit_view"
+            android:layout_centerInParent="true"
+            style="@style/SpinKitView.Large.FadingCircle"
+            app:SpinKit_Color="#03A9F4"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spin_kit_view"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:textColor="#A2A2A2"
+            android:text="请稍后..."
+            android:id="@+id/relative_progress_hint_text"
+            />
+
+    </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>
